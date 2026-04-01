@@ -30,7 +30,7 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation",
     },
-    servers: [{ url: "http://localhost:3000" }],
+    servers: [{ url: "blogs-backend-production-0df8.up.railway.app" }],
   },
   // Paths to files with JSDoc annotations
   apis: ["./routes/*.js"],
