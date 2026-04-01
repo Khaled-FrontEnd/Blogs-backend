@@ -3,8 +3,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config({ debug: false, silent: true });
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
@@ -13,10 +16,11 @@ const authRouter = require("./routes/Auth");
 const usersRouter = require("./routes/Users");
 const blogsRouter = require("./routes/Blogs");
 
+const PORT = process.env.PORT || 3000;
 mongoose
   .connect(process.env.DATABASE_URL)
   .then(() => {
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log("Listing on port localhost:3000/");
     });
   })
@@ -30,7 +34,11 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation",
     },
-    servers: [{ url: "blogs-backend-production-0df8.up.railway.app" }],
+    servers: [
+      {
+        url: "https://blogs-backend-production-0df8.up.railway.app",
+      },
+    ],
   },
   // Paths to files with JSDoc annotations
   apis: ["./routes/*.js"],
